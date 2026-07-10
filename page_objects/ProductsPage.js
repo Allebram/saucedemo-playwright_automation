@@ -7,6 +7,10 @@ class ProductsPage {
     await this.page.click(`button[name=add-to-cart-${productName}]`);
   }
 
+  async isRemoveButtonVisible(productName) {
+  return await this.page.locator(`[data-test="remove-${productName}"]`).isVisible();
+  }
+
   async goToShoppingCart() {
     const shoppingCartBadgeSelector = '.shopping_cart_badge';
     await this.page.waitForSelector(shoppingCartBadgeSelector, { timeout: 10000 });
@@ -14,17 +18,7 @@ class ProductsPage {
   }
   
   async verifyProductOnPage(productName) {
-    const productSelector = `text=${productName}`;
-    await this.page.waitForSelector(productSelector);
-  }
-
-  async sortProducts(sortOption) {
-    await this.page.selectOption('.product_sort_container', sortOption);
-  }
-
-  async isProductInCart(productName) {
-    const productInCartSelector = `text=${productName}`;
-    return await this.page.isVisible(productInCartSelector);
+    return this.page.locator(`text=${productName}`).isVisible();
   }
 
   async isProductDisplayed(productName) {

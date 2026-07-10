@@ -1,40 +1,139 @@
-# Playwright Automated Testing for SauceDemo
+# 🧪 SauceDemo E2E Test Suite
 
-This repository contains automated tests for the SauceDemo e-commerce website using Playwright. These tests cover various scenarios, including user login, product management, and checkout processes.
+Automated end-to-end tests for the SauceDemo checkout flow using **Playwright** following the **Page Object Model (POM)** design pattern.
 
-## Getting Started
+---
 
-To run the automated tests locally, follow these steps:
+# 🚀 Installation & Running the Test Suite
 
-Clone this repository to your local machine:
+## 1. Clone the repository
 
-git clone https://github.com/your-username/playwright-saucedemo-automation.git
+```bash
+git clone <your-repo-url>
+cd <repo-folder>
+```
 
-## Install project dependencies:
+## 2. Install dependencies
+
+```bash
 npm install
+```
 
-## Run the tests:
+## 3. Install Playwright browsers
 
-npm test
+```bash
+npx playwright install
+```
 
-## Features
+## 4. Run the test suite
 
-Login and authentication tests
+### Headless mode
 
-Product management and shopping cart tests
+```bash
+npx playwright test
+```
 
-Checkout process tests
+### Headed mode
 
-Cross-browser testing (Chromium, Firefox, WebKit)
+```bash
+npx playwright test --headed
+```
 
-Data-driven testing
+### View the HTML report
 
-Github Actions for Continous testing
+```bash
+npx playwright show-report
+```
 
-## Technologies Used
-Playwright ,
-Node.js ,
-Mocha
-Chai
+---
 
+# 🛠️ Tooling Choices
 
+| Tool | Reason |
+|------|--------|
+| **Playwright** | Provides reliable end-to-end testing with built-in auto-waiting, cross-browser support, and powerful locators. |
+| **Page Object Model (POM)** | Improves maintainability by separating page interactions from test logic and promoting code reuse. |
+| **dotenv** | Keeps sensitive credentials out of the source code by loading them from environment variables. *(For this assessment, the `.env` file is included for demonstration purposes only.)* |
+| **Node.js** | Serves as the runtime environment that executes the Playwright automation code. |
+
+### Why Playwright?
+
+Playwright was chosen over Selenium and Cypress because it offers:
+
+- Automatic waiting for elements to become actionable.
+- Reliable locator strategies using attributes such as `data-test`.
+- Cross-browser support with a single API for Chromium, Firefox, and WebKit.
+- Fast and stable execution suitable for end-to-end testing.
+
+---
+
+# 📂 Project Structure
+
+```text
+playwright-saucedemo-automation/
+│
+├── page_objects/
+│   ├── LoginPage.js
+│   ├── ProductsPage.js
+│   ├── ShoppingCartPage.js
+│   └── CheckoutPage.js
+│
+├── tests/
+│   └── saucedemo.spec.js
+│
+├── .env
+├── package.json
+└── README.md
+```
+
+---
+
+# 🔒 Environment Variables
+
+Create a `.env` file in the project root.
+
+```env
+SAUCE_USERNAME=standard_user
+SAUCE_PASSWORD=secret_sauce
+```
+
+> **Note:** In a production project, the `.env` file should never be committed to GitHub. It is included in this repository solely for the purpose of this assessment.
+
+---
+
+# 💡 What I Would Add or Improve With More Time
+
+Given additional time, I would:
+
+- Add a detailed assertion to the cart whenever you add or remove a product.
+- Remove the `.env` file from version control and manage credentials securely using environment variables.
+
+---
+
+# 🤖 AI Tooling Usage
+
+### Where I used AI
+
+- Add visuals to the README.md
+- Generated the initial Page Object Model (POM) structure.
+- Reviewed the completed automation code for potential bugs and inconsistencies.
+
+### What I accepted
+
+- The overall Page Object structure.
+- Method naming conventions.
+- Suggestions for improving code readability.
+
+### What I changed
+
+- Removed a leftover `page.pause()` statement that would have caused the test to hang during CI execution.
+
+---
+
+# ✅ Tech Stack
+
+- JavaScript
+- Playwright
+- Node.js
+- dotenv
+- Page Object Model (POM)

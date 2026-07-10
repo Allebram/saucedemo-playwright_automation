@@ -1,3 +1,5 @@
+const { expect } = require('@playwright/test');
+
 class CheckoutPage {
     constructor(page) {
       this.page = page;
@@ -7,12 +9,27 @@ class CheckoutPage {
       await this.page.fill('#first-name', firstName);
       await this.page.fill('#last-name', lastName);
       await this.page.fill('#postal-code', zipCode);
+    }
+
+    async clickContinue() {
       await this.page.click('#continue');
     }
+
+    async verifyCheckoutInformation(firstName, lastName, zipCode) {
+      await expect(this.page.locator('#first-name')).toHaveValue(firstName);
+      await expect(this.page.locator('#last-name')).toHaveValue(lastName);
+      await expect(this.page.locator('#postal-code')).toHaveValue(zipCode);
+    }
   
-    async verifyOrderSummary(productName) {
-      const orderSummarySelector = `text=${productName}`;
-      await this.page.waitForSelector(orderSummarySelector);
+    async verifyOrderSummary(productName, price) {
+      await expect(this.page.locator('.inventory_item_name')).toHaveText(productName);
+      await expect(this.page.locator('.inventory_item_price')).toHaveText(price);
+    }
+
+    async verifyOrderTotals(itemTotal, tax, total) {
+      await expect(this.page.locator('.summary_subtotal_label')).toHaveText(`Item total: ${itemTotal}`);
+      await expect(this.page.locator('.summary_tax_label')).toHaveText(`Tax: ${tax}`);
+      await expect(this.page.locator('.summary_total_label')).toHaveText(`Total: ${total}`);
     }
   
     async completePurchase() {
